@@ -1,0 +1,7 @@
+aws_access_key = ""
+aws_secret_key = ""
+host_route_53_zone_id = ""
+instance_type = "t2.nano"
+ssh_key = "mykey.pem"
+ssh_key_name = ""
+ssh_user_name = "ec2-user"

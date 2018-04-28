@@ -1,0 +1,3 @@
+host_name = "vpn.myhost.com"
+region = "us-east-2"
+base_image = "ami-31c7f654"
