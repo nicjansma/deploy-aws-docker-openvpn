@@ -5,7 +5,7 @@ Deploys private OpenVPN servers quickly around the world via [Amazon AWS EC2](ht
 Based on the [kylemanna/docker-openvpn](https://github.com/kylemanna/docker-openvpn) docker container and inspired by
 [brasey/deploy-docker-openvpn](https://github.com/brasey/deploy-docker-openvpn).
 
-This project will deploy one (or more) `t2.nano` private VPN servers around the world to securely route your desktop,
+This project will deploy one (or more) `t3.nano` private VPN servers around the world to securely route your desktop,
 laptop, router or mobile traffic. The tools in this package will help you configure a private, secure docker container
 with an [OpenVPN](https://openvpn.net/) environment that you can easily deploy to any number of Amazon AWS
 regions around the world with just a few lines of configuration, at any time.  Using
@@ -227,7 +227,7 @@ Next, we'll need to edit a couple configuration files.
     aws_access_key = ""
     aws_secret_key = ""
     host_route_53_zone_id = ""
-    instance_type = "t2.nano"
+    instance_type = "t3.nano"
     ssh_key = "mykey.pem"
     ssh_key_name = ""
     ssh_user_name = "ec2-user"
@@ -237,7 +237,7 @@ Next, we'll need to edit a couple configuration files.
     * `aws_secret_key` is your AWS Secret Key
     * `host_route_53_zone_id` is the Hosted Zone ID you will be updating for `$OVPN_SERVER`
     * `instance_type` can be the [AWS EC2 instance type](https://aws.amazon.com/ec2/instance-types/) you want to use.  At
-        the time of writing, `t2.nano` is the cheapest instance type.
+        the time of writing, `t3.nano` is the cheapest instance type.
     * `ssh_key` is the location of the `.pem` file you created
     * `ssh_key_name` is the name of _Key Pair Name_ in EC2
     * `ssh_user_name` is the user name used to connect to your EC2 instance.  `ec2-user` should probably be used.
@@ -275,7 +275,7 @@ Next, we'll need to edit a couple configuration files.
 
 Now you're ready to deploy!  The Terraform scripts will do the following:
 
-* Configures a VPC, Internet Gateway, Routes and Subnet for this region (required if you're using `t2.nano`)
+* Configures a VPC, Internet Gateway, Routes and Subnet for this region (required if you're using `t3.nano`)
 * Creates a Security Group (firewall), open to incoming SSH (22) and OpenVPN (1194)
 * Launches an EC2 instance
     * Once it's ready, it uploads the files in `files/`:
@@ -311,3 +311,7 @@ You can destroy (stop) a deployment via:
 terraform workspace select us-east
 terraform destroy -var-file config-us-east.tfvars
 ```
+
+# Revision History
+* 2018-04-24: Initial version
+* 2018-11-08: Changed to `t3.nano`; Updated `configure_node.sh` for latest Amazon Linux 2 AMI

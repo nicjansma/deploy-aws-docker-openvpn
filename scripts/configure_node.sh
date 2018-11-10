@@ -14,7 +14,7 @@ function fixperms {
 sudo yum update -y
 
 # Install docker
-sudo yum install -y docker
+sudo amazon-linux-extras install -y docker
 
 # Start docker
 sudo service docker start
@@ -27,7 +27,6 @@ sudo docker info
 
 # Install docker-openvpn service
 $MV /tmp/docker-openvpn@data.service /etc/systemd/system/docker-openvpn@data.service
-fixperms /etc/systemd/system/docker-openvpn@data.service
 sudo semanage fcontext -a -t systemd_unit_file_t /usr/lib/systemd/system/docker-openvpn@data.service
 sudo restorecon -v /etc/systemd/system/docker-openvpn@data.service
 
