@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 ## Quick call to get the latest AWS Linux 2 Quickstart AMI
 ## Requires region as only parameter
 #
