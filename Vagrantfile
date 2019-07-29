@@ -1,5 +1,5 @@
 Vagrant.configure(2) do |config|
-  config.vm.box = "stakahashi/amazonlinux2"
+  config.vm.box = "gbailey/amzn2"
   config.vm.network "forwarded_port", guest:1194, host:1194, protocol:"udp"
   config.vm.hostname = "vpn"
 
