@@ -71,8 +71,9 @@ resource "aws_security_group" "vpn" {
   }
 }
 
-resource "aws_instance" "vpn" {
+resource "aws_spot_instance_request" "vpn" {
   ami                         = "${var.base_image}"
+  wait_for_fulfillment        = "true"
   instance_type               = "${var.instance_type}"
   associate_public_ip_address = "true"
   vpc_security_group_ids      = ["${aws_security_group.vpn.id}"]
@@ -110,8 +111,12 @@ resource "aws_instance" "vpn" {
   }
 }
 
-output "address" {
-  value = "${aws_instance.vpn.public_ip}"
+output "public address" {
+  value = "${aws_spot_instance_request.vpn.public_ip}"
+}
+
+output "private_address" {
+  value = "${aws_spot_instance_request.vpn.private_ip}"
 }
 
 resource "aws_route53_record" "vpn" {
@@ -119,5 +124,5 @@ resource "aws_route53_record" "vpn" {
   name    = "${var.host_name}"
   type    = "A"
   ttl     = "300"
-  records = ["${aws_instance.vpn.public_ip}"]
+  records = ["${aws_spot_instance_request.vpn.public_ip}"]
 }
